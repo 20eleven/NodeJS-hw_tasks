@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-hw_tasks",
+  "version": "1.0.0",
+  "description": "NodeJS Global Mentoring Program",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/20eleven/NodeJS-hw_tasks.git"
+  },
+  "author": "Pavel Belyaev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/20eleven/NodeJS-hw_tasks/issues"
+  },
+  "homepage": "https://github.com/20eleven/NodeJS-hw_tasks#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
