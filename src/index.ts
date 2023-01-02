@@ -4,7 +4,9 @@ import {
     deleteUserById,
     updateUser,
     readUser,
-    getAutoSuggestUsers
+    getAutoSuggestUsers,
+    validateSchema,
+    schema
 } from './utils';
 
 const app: Application = express();
@@ -18,9 +20,9 @@ app
 router.get('/', (req: Request, res: Response) => res.status(200).json({ message: 'success' }));
 
 router
-    .post('/create', createUser)
+    .post('/create', validateSchema(schema), createUser)
     .get('/read/:id', readUser)
-    .put('/update/:id', updateUser)
+    .put('/update/:id', validateSchema(schema), updateUser)
     .delete('/delete/:id', deleteUserById)
     .get('/find', getAutoSuggestUsers);
 

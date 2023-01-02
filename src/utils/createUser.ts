@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import { users } from '../data/usersDB';
 
 export const createUser = ({ body }: Request, res: Response) => {
-    // TODO: other fields
     body.id = uuid4();
     body.isDeleted = false;
 
