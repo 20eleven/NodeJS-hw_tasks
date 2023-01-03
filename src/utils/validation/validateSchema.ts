@@ -3,8 +3,8 @@ import { Request, Response, NextFunction } from 'express';
 import { errorResponse } from './errorsMapping';
 
 export const validateSchema = (schema: ObjectSchema) => {
-    return (req: Request, res: Response, next: NextFunction) => {
-        const { error } = schema.validate(req.body, {
+    return ({ body }: Request, res: Response, next: NextFunction) => {
+        const { error } = schema.validate(body, {
             abortEarly: false,
             allowUnknown: false
         });
