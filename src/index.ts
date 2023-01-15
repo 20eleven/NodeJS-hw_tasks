@@ -14,12 +14,13 @@ const app: Application = express();
 const router = express.Router();
 const PORT = process.env.PORT || 8000;
 const connectionString = 'postgres://ikbppeeu:3oQRn_z8glyQt-sktxc82c8i5-wth4Qf@mel.db.elephantsql.com/ikbppeeu';
-export const sequelize = new Sequelize(connectionString);
+const sequelize = new Sequelize(connectionString);
 
 sequelize
     .authenticate()
     .then(() => console.log('Connection has been established successfully.'))
     .catch((err) => console.error('Unable to connect to the database:', err));
+
 
 export const User = sequelize.define(
     'user',

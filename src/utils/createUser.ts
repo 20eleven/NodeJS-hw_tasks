@@ -9,7 +9,8 @@ export const createUser = async ({ body }: Request, res: Response) => {
     try {
         await User.create(body);
         res.status(200).send({ message: `User ${body.id} created successfully` });
-    } catch {
-        res.send({ message: 'Something goes wrong when create user' });
+    } catch (err) {
+        console.error(err);
+        res.json({ error: err });
     }
 };
