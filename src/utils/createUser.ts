@@ -1,12 +1,15 @@
 import { v4 as uuid4 } from 'uuid';
 import { Request, Response } from 'express';
-import { users } from '../data/usersDB';
+import { User } from '..';
 
-export const createUser = ({ body }: Request, res: Response) => {
+export const createUser = async ({ body }: Request, res: Response) => {
     body.id = uuid4();
     body.isDeleted = false;
 
-    users.push(body);
-
-    res.status(200).send({ message: 'User created successfully' });
+    try {
+        await User.create(body);
+        res.status(200).send({ message: `User ${body.id} created successfully` });
+    } catch {
+        res.send({ message: 'Something goes wrong when create user' });
+    }
 };

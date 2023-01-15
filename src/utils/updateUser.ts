@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
-import { getUserById } from './getUser';
+import { User } from '..';
 
 export const updateUser = ({ body, params: { id } }: Request, res: Response) => {
-    const userById = getUserById(id);
+    User.findByPk(id)
+        .then(user => {
+            if (!user) return res.status(404).json({ message: `User with id ${id} not found` });
 
-    if (userById === undefined) {
-        return res.status(404).json({ message: `User with id ${id} not found` });
-    }
-
-    Object.assign(userById, body);
-
-    res.status(200).send({ message: 'User Updated successfully' });
+            user.update(body).then(() => {
+                res.status(200).send({ message: `User ${id} updated successfully`, user });
+            });
+        })
+        .catch(err => {
+            console.error(err);
+        });
 };

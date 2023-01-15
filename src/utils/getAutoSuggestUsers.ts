@@ -1,22 +1,23 @@
 import { Request, Response } from 'express';
-import { users } from '../data/usersDB';
+import { Op } from 'sequelize';
+import { User } from '..';
 
 export const getAutoSuggestUsers = ({ query: { query: loginSubstring, limit } }: Request, res: Response) => {
     if (!loginSubstring) {
-        return res.json({ message: 'Login substring is not defined' });
+        return res.json({ message: 'Login substring query is not defined' });
     }
     if (!limit) {
         return res.json({ message: 'Limit is not defined' });
     }
 
-    const foundUsers = users
-        .filter(({ login }) => login.indexOf(`${loginSubstring}`) !== -1)
-        .slice(0, +limit)
-        .sort(({ login: loginA }, { login: loginB }) => {
-            if (loginA < loginB) return -1;
-            if (loginA > loginB) return 1;
-            return 0;
-        });
-
-    res.status(200).send(foundUsers);
+    User.findAll({
+        where: {
+            login: { [Op.iLike]: `${loginSubstring}%` }
+        },
+        limit: +limit
+    }).then(users => {
+        res.status(200).send({ users });
+    }).catch(err => {
+        console.error(err);
+    });
 };

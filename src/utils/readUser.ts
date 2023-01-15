@@ -1,12 +1,14 @@
 import { Request, Response } from 'express';
-import { getUserById } from './getUser';
+import { User } from '..';
 
 export const readUser = ({ params: { id } }: Request, res: Response) => {
-    const user = getUserById(id);
+    User.findByPk(id)
+        .then(user => {
+            if (!user) return res.status(404).json({ message: `User with id ${id} not found` });
 
-    if (!user) {
-        return res.status(404).json({ message: `User with id ${id} not found` });
-    }
-
-    res.status(200).send({ user });
+            res.status(200).send({ user });
+        })
+        .catch(err => {
+            console.error(err);
+        });
 };

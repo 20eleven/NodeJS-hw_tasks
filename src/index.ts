@@ -1,4 +1,5 @@
-import express, { Request, Response, Application } from 'express';
+import express, { Application } from 'express';
+import { DataTypes, Sequelize } from 'sequelize';
 import {
     createUser,
     deleteUserById,
@@ -12,12 +13,49 @@ import {
 const app: Application = express();
 const router = express.Router();
 const PORT = process.env.PORT || 8000;
+const connectionString = 'postgres://ikbppeeu:3oQRn_z8glyQt-sktxc82c8i5-wth4Qf@mel.db.elephantsql.com/ikbppeeu';
+export const sequelize = new Sequelize(connectionString);
+
+sequelize
+    .authenticate()
+    .then(() => console.log('Connection has been established successfully.'))
+    .catch((err) => console.error('Unable to connect to the database:', err));
+
+export const User = sequelize.define(
+    'user',
+    {
+        id: {
+            type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
+            allowNull: false,
+            primaryKey: true
+        },
+        login: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        age: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        isDeleted: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false
+        }
+    },
+    {
+        tableName: 'users'
+    }
+);
 
 app
     .use(express.json())
     .use('/users', router);
-
-router.get('/', (req: Request, res: Response) => res.status(200).json({ message: 'success' }));
 
 router
     .post('/create', validateSchema(schema), createUser)
