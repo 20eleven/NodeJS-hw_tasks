@@ -1,28 +1,15 @@
-import express, { Application } from 'express';
 import { DataTypes, Sequelize } from 'sequelize';
-import {
-    createUser,
-    deleteUserById,
-    updateUser,
-    readUser,
-    getAutoSuggestUsers,
-    validateSchema,
-    schema
-} from './utils';
+import { CONNECTION_STRING } from '../config';
+import { UserModelType } from '../types/users';
 
-const app: Application = express();
-const router = express.Router();
-const PORT = process.env.PORT || 8000;
-const connectionString = 'postgres://ikbppeeu:3oQRn_z8glyQt-sktxc82c8i5-wth4Qf@mel.db.elephantsql.com/ikbppeeu';
-const sequelize = new Sequelize(connectionString);
+const sequelize = new Sequelize(CONNECTION_STRING);
 
 sequelize
     .authenticate()
     .then(() => console.log('Connection has been established successfully.'))
     .catch((err) => console.error('Unable to connect to the database:', err));
 
-
-export const User = sequelize.define(
+export const UserModel = sequelize.define<UserModelType>(
     'user',
     {
         id: {
@@ -51,18 +38,8 @@ export const User = sequelize.define(
     },
     {
         tableName: 'users'
+        // timestamps: false,
+        // createdAt: false,
+        // updatedAt: false
     }
 );
-
-app
-    .use(express.json())
-    .use('/users', router);
-
-router
-    .post('/create', validateSchema(schema), createUser)
-    .get('/read/:id', readUser)
-    .put('/update/:id', validateSchema(schema), updateUser)
-    .delete('/delete/:id', deleteUserById)
-    .get('/find', getAutoSuggestUsers);
-
-app.listen(PORT);
