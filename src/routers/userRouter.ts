@@ -1,5 +1,5 @@
 import express from 'express';
-import { schema, validateSchema } from './middlewares';
+import { querySchema, userSchema, validateQuerySchema, validateUserSchema } from './middlewares';
 import {
     createUserController,
     readUserController,
@@ -11,8 +11,8 @@ import {
 const router = express.Router();
 
 export default router
-    .post('/create', validateSchema(schema), createUserController)
+    .post('/create', validateUserSchema(userSchema), createUserController)
     .get('/read/:id', readUserController)
-    .put('/update/:id', validateSchema(schema), updateUserController)
+    .put('/update/:id', validateUserSchema(userSchema), updateUserController)
     .delete('/delete/:id', deleteUserController)
-    .get('/find', getAutoSuggestUsersController);
+    .get('/find', validateQuerySchema(querySchema), getAutoSuggestUsersController);

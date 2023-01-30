@@ -5,11 +5,8 @@ import UserService from '../../services/usersService';
 const userServiceInstance = new UserService(UserModel);
 
 export const getAutoSuggestUsersController = ({ query: { query: loginSubstring, limit } }: Request, res: Response) => {
-    if (!loginSubstring) return res.json({ message: 'Login substring query is not defined' });
-
-    if (!limit) return res.json({ message: 'Limit is not defined' });
-
-    userServiceInstance.getAutoSuggestUsers(`${loginSubstring}`, +limit)
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    userServiceInstance.getAutoSuggestUsers(`${loginSubstring}`, +limit!)
         .then((users) => {
             res.status(200).send({ users });
         })

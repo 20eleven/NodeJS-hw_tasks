@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-export const schema = Joi.object().keys({
+export const userSchema = Joi.object().keys({
     login: Joi.string()
         .required(),
     password: Joi.string()
@@ -10,4 +10,9 @@ export const schema = Joi.object().keys({
         .min(4)
         .max(130)
         .required()
+});
+
+export const querySchema = Joi.object().keys({
+    query: Joi.required(),
+    limit: Joi.required()
 });
