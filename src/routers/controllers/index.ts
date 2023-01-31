@@ -3,3 +3,8 @@ export * from './readUserController';
 export * from './updateUserController';
 export * from './deleteUserController';
 export * from './getAutoSuggestUsersController';
+export * from './createGroupController';
+export * from './readGroupController';
+export * from './readAllGroupController';
+export * from './updateGroupController';
+export * from './deleteGroupController';
