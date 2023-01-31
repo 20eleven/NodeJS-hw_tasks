@@ -9,11 +9,9 @@ export const validateUserSchema = (schema: ObjectSchema) => {
             allowUnknown: false
         });
 
-        if (error && error.isJoi) {
-            res.status(400).json(errorResponse(error.details));
-        } else {
-            return next();
-        }
+        if (!error) return next();
+
+        res.status(400).json(error.isJoi ? errorResponse(error.details) : { error });
     };
 };
 
@@ -24,10 +22,8 @@ export const validateQuerySchema = (schema: ObjectSchema) => {
             allowUnknown: false
         });
 
-        if (error && error.isJoi) {
-            res.status(400).json(errorResponse(error.details));
-        } else {
-            return next();
-        }
+        if (!error) return next();
+
+        res.status(400).json(error.isJoi ? errorResponse(error.details) : { error });
     };
 };
