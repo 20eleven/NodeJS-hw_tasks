@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
-import { GroupModel } from '../../models/group';
+import db from '../../models';
 import GroupService from '../../services/groupsService';
+
+const GroupModel = db.group;
 
 const groupServiceInstance = new GroupService(GroupModel);
 

@@ -6,7 +6,7 @@ import {
     updateGroupData,
     deleteGroupData
 } from '../data-access';
-import { GroupModelStaticType, GroupModelType, GroupType } from '../types/groups';
+import { GroupModelType, GroupModelStaticType, GroupType } from '../types/groups';
 
 export default class GroupService {
     groupModel: GroupModelStaticType;

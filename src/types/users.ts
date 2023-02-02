@@ -1,13 +1,15 @@
-import { Model, ModelStatic } from 'sequelize';
+import { User } from '../models/user';
+
+export type UserIdType = string;
 
 export type UserType = {
-    id: string,
+    id: UserIdType,
     login: string,
     password: string,
     age: number,
     isDeleted: boolean,
 };
 
-export type UserModelType = Model<UserType, Partial<UserType>>;
+export type UserModelType = User;
 
-export type UserModelStaticType = ModelStatic<UserModelType>;
+export type UserModelStaticType = typeof User;

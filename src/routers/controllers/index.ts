@@ -8,3 +8,4 @@ export * from './readGroupController';
 export * from './readAllGroupController';
 export * from './updateGroupController';
 export * from './deleteGroupController';
+export * from './addUsersToGroupController';

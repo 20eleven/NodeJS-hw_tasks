@@ -1,16 +1,27 @@
-import { DataTypes, Sequelize } from 'sequelize';
-import { UserModelType } from '../types/users';
+import {
+    DataTypes,
+    Model,
+    Sequelize,
+    InferAttributes,
+    InferCreationAttributes,
+    CreationOptional
+} from 'sequelize';
+import { UserIdType } from '../types/users';
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const sequelize = new Sequelize(process.env.CONNECTION_STRING!);
+export class User extends Model<
+    InferAttributes<User>,
+    InferCreationAttributes<User>
+> {
+    declare id: CreationOptional<UserIdType>;
+    declare login: string;
+    declare password: string;
+    declare age: number;
+    declare isDeleted: boolean;
+    declare createdAt: CreationOptional<Date>;
+    declare updatedAt: CreationOptional<Date>;
+}
 
-sequelize
-    .authenticate()
-    .then(() => console.log('Connection has been established successfully.'))
-    .catch((err) => console.error('Unable to connect to the database:', err));
-
-export const UserModel = sequelize.define<UserModelType>(
-    'user',
+export const UserModel = (sequelize: Sequelize) => User.init(
     {
         id: {
             type: DataTypes.UUID,
@@ -34,12 +45,12 @@ export const UserModel = sequelize.define<UserModelType>(
             type: DataTypes.BOOLEAN,
             defaultValue: false,
             allowNull: false
-        }
+        },
+        createdAt: DataTypes.DATE,
+        updatedAt: DataTypes.DATE
     },
     {
-        tableName: 'users'
-        // timestamps: false,
-        // createdAt: false,
-        // updatedAt: false
+        tableName: 'users',
+        sequelize
     }
 );

@@ -8,3 +8,4 @@ export * from './readGroup';
 export * from './readAllGroup';
 export * from './updateGroup';
 export * from './deleteGroup';
+export * from './addUsersToGroupData';

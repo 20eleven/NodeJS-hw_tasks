@@ -1,16 +1,36 @@
-import { DataTypes, Sequelize } from 'sequelize';
-import { GroupModelType } from '../types/groups';
+import {
+    Association,
+    DataTypes,
+    HasManyAddAssociationMixin,
+    Model,
+    Sequelize,
+    InferAttributes,
+    InferCreationAttributes,
+    CreationOptional,
+    NonAttribute
+} from 'sequelize';
+import { GroupIdType, Permission } from '../types/groups';
+import { User } from './user';
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const sequelize = new Sequelize(process.env.CONNECTION_STRING!);
+export class Group extends Model<
+    InferAttributes<Group, { omit: 'userGroups' }>,
+    InferCreationAttributes<Group, { omit: 'userGroups' }>
+> {
+    declare id: CreationOptional<GroupIdType>;
+    declare name: string;
+    declare permissions: Array<Permission>;
+    declare createdAt: CreationOptional<Date>;
+    declare updatedAt: CreationOptional<Date>;
 
-sequelize
-    .authenticate()
-    .then(() => console.log('Connection has been established successfully.'))
-    .catch((err) => console.error('Unable to connect to the database:', err));
+    declare addUser: HasManyAddAssociationMixin<User, number>;
 
-export const GroupModel = sequelize.define<GroupModelType>(
-    'group',
+    declare userGroups?: NonAttribute<User[]>;
+    declare static associations: {
+        userGroups: Association<Group, User>;
+    };
+}
+
+export const GroupModel = (sequelize: Sequelize) => Group.init(
     {
         id: {
             type: DataTypes.UUID,
@@ -25,9 +45,12 @@ export const GroupModel = sequelize.define<GroupModelType>(
         permissions: {
             type: DataTypes.ARRAY(DataTypes.STRING),
             allowNull: false
-        }
+        },
+        createdAt: DataTypes.DATE,
+        updatedAt: DataTypes.DATE
     },
     {
-        tableName: 'groups'
+        tableName: 'groups',
+        sequelize
     }
 );
