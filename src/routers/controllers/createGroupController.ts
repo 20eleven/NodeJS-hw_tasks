@@ -6,11 +6,13 @@ const GroupModel = db.group;
 
 const groupServiceInstance = new GroupService(GroupModel);
 
-export const createGroupController = ({ body: groupDTO }: Request, res: Response) => {
-    groupServiceInstance.createGroup(groupDTO)
-        .then(() => res.status(200).send({ message: `Group ${groupDTO.id} created successfully` }))
-        .catch((err) => {
-            console.error(err);
-            res.json({ error: err });
-        });
+export const createGroupController = async ({ body: groupDTO }: Request, res: Response) => {
+    try {
+        await groupServiceInstance.createGroup(groupDTO);
+
+        res.status(200).send({ message: `Group ${groupDTO.id} created successfully` });
+    } catch (error) {
+        console.error(error);
+        res.json({ error });
+    }
 };

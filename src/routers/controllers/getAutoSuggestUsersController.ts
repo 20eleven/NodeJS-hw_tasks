@@ -6,14 +6,14 @@ const UserModel = db.user;
 
 const userServiceInstance = new UserService(UserModel);
 
-export const getAutoSuggestUsersController = ({ query: { query: loginSubstring, limit } }: Request, res: Response) => {
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    userServiceInstance.getAutoSuggestUsers(`${loginSubstring}`, +limit!)
-        .then((users) => {
-            res.status(200).send({ users });
-        })
-        .catch((err) => {
-            console.error(err);
-            res.json({ error: err });
-        });
+export const getAutoSuggestUsersController = async ({ query: { query: loginSubstring, limit } }: Request, res: Response) => {
+    try {
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const users = await userServiceInstance.getAutoSuggestUsers(`${loginSubstring}`, +limit!);
+
+        res.status(200).send({ users });
+    } catch (error) {
+        console.error(error);
+        res.json({ error });
+    }
 };

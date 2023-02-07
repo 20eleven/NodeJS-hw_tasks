@@ -6,11 +6,13 @@ const UserModel = db.user;
 
 const userServiceInstance = new UserService(UserModel);
 
-export const createUserController = ({ body: userDTO }: Request, res: Response) => {
-    userServiceInstance.createUser(userDTO)
-        .then(() => res.status(200).send({ message: `User ${userDTO.id} created successfully` }))
-        .catch((err) => {
-            console.error(err);
-            res.json({ error: err });
-        });
+export const createUserController = async ({ body: userDTO }: Request, res: Response) => {
+    try {
+        await userServiceInstance.createUser(userDTO);
+
+        res.status(200).send({ message: `User ${userDTO.id} created successfully` });
+    } catch (error) {
+        console.error(error);
+        res.json({ error });
+    }
 };

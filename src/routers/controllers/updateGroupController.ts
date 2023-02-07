@@ -6,15 +6,15 @@ const GroupModel = db.group;
 
 const groupServiceInstance = new GroupService(GroupModel);
 
-export const updateGroupController = ({ body: groupDTO, params: { id } }: Request, res: Response) => {
-    groupServiceInstance.updateGroup(groupDTO, id)
-        .then((result) => {
-            if (!result[0]) return res.status(404).json({ message: `Group with id ${id} not found` });
+export const updateGroupController = async ({ body: groupDTO, params: { id } }: Request, res: Response) => {
+    try {
+        const result = await groupServiceInstance.updateGroup(groupDTO, id);
 
-            res.status(200).send({ message: `Group ${id} updated successfully` });
-        })
-        .catch((err) => {
-            console.error(err);
-            res.json({ error: err });
-        });
+        if (!result[0]) return res.status(404).json({ message: `Group with id ${id} not found` });
+
+        res.status(200).send({ message: `Group ${id} updated successfully` });
+    } catch (error) {
+        console.error(error);
+        res.json({ error });
+    }
 };

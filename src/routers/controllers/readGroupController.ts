@@ -6,15 +6,15 @@ const GroupModel = db.group;
 
 const groupServiceInstance = new GroupService(GroupModel);
 
-export const readGroupController = ({ params: { id } }: Request, res: Response) => {
-    groupServiceInstance.readGroup(id)
-        .then((group) => {
-            if (!group) return res.status(404).json({ message: `Group with id ${id} not found` });
+export const readGroupController = async ({ params: { id } }: Request, res: Response) => {
+    try {
+        const group = await groupServiceInstance.readGroup(id);
 
-            res.status(200).send({ group });
-        })
-        .catch((err) => {
-            console.error(err);
-            res.json({ error: err });
-        });
+        if (!group) return res.status(404).json({ message: `Group with id ${id} not found` });
+
+        res.status(200).send({ group });
+    } catch (error) {
+        console.error(error);
+        res.json({ error });
+    }
 };

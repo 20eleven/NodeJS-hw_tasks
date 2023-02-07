@@ -6,15 +6,15 @@ const UserModel = db.user;
 
 const userServiceInstance = new UserService(UserModel);
 
-export const updateUserController = ({ body: userDTO, params: { id } }: Request, res: Response) => {
-    userServiceInstance.updateUser(userDTO, id)
-        .then((result) => {
-            if (!result[0]) return res.status(404).json({ message: `User with id ${id} not found` });
+export const updateUserController = async ({ body: userDTO, params: { id } }: Request, res: Response) => {
+    try {
+        const result = await userServiceInstance.updateUser(userDTO, id);
 
-            res.status(200).send({ message: `User ${id} updated successfully` });
-        })
-        .catch((err) => {
-            console.error(err);
-            res.json({ error: err });
-        });
+        if (!result[0]) return res.status(404).json({ message: `User with id ${id} not found` });
+
+        res.status(200).send({ message: `User ${id} updated successfully` });
+    } catch (error) {
+        console.error(error);
+        res.json({ error });
+    }
 };
