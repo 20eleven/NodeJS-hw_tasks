@@ -1,5 +1,5 @@
 import { v4 as uuid4 } from 'uuid';
-import { createUserData, deleteUserData, getAutoSuggestUsersData, readUserData, updateUserData } from '../data-access';
+import { createUserData, deleteUserData, getAutoSuggestUsersData, readUserData, readUsersData, updateUserData } from '../data-access';
 import { UserModelStaticType, UserModelType, UserType } from '../types/users';
 
 export default class UserService {
@@ -17,6 +17,10 @@ export default class UserService {
 
     readUser(id: string) {
         return readUserData(this.userModel, id);
+    }
+
+    readUsers(ids: string[]) {
+        return readUsersData(this.userModel, ids);
     }
 
     updateUser(userDTO: UserType, id: string) {

@@ -22,7 +22,7 @@ export class Group extends Model<
     declare createdAt: CreationOptional<Date>;
     declare updatedAt: CreationOptional<Date>;
 
-    declare addUser: HasManyAddAssociationMixin<User, number>;
+    declare addUsers: HasManyAddAssociationMixin<User[], number>;
 
     declare userGroups?: NonAttribute<User[]>;
     declare static associations: {

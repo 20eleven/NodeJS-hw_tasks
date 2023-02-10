@@ -9,3 +9,4 @@ export * from './readAllGroup';
 export * from './updateGroup';
 export * from './deleteGroup';
 export * from './addUsersToGroupData';
+export * from './readUsers';

@@ -3,4 +3,4 @@ import { addUsersToGroupController } from './controllers';
 
 const router = express.Router();
 
-export default router.post('/add', addUsersToGroupController);
+export default router.post('/:groupId', addUsersToGroupController);

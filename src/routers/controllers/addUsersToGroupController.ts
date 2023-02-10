@@ -10,19 +10,19 @@ const userServiceInstance = new UserService(UserModel);
 const groupServiceInstance = new GroupService(GroupModel);
 const userGroupServiceInstance = new UserGroupService();
 
-export const addUsersToGroupController = async ({ body: { userId, groupId } }: Request, res: Response) => {
+export const addUsersToGroupController = async ({ params: { groupId }, body: { userIds } }: Request, res: Response) => {
     try {
-        const [readGroup, readUser] = await Promise.all([
+        const [readGroup, readUsers] = await Promise.all([
             groupServiceInstance.readGroup(groupId),
-            userServiceInstance.readUser(userId)
+            userServiceInstance.readUsers(userIds)
         ]);
 
         if (!readGroup) return res.status(404).json({ message: `Group with id ${groupId} not found` });
-        if (!readUser) return res.status(404).json({ message: `User with id ${userId} not found` });
+        if (!readUsers) return res.status(404).json({ message: `Users with ids ${userIds.join(', ')} not found` });
 
-        userGroupServiceInstance.addUsersToGroup(readGroup, readUser);
+        userGroupServiceInstance.addUsersToGroup(readGroup, readUsers);
 
-        res.status(200).send({ message: `Added user id ${userId} to group id ${groupId}` });
+        res.status(200).send({ message: `Added user ids ${userIds.join(', ')} to group id ${groupId}` });
     } catch (error) {
         console.error(error);
         res.json({ error });
