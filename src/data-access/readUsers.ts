@@ -1,7 +1,7 @@
 import { Op } from 'sequelize';
-import { UserModelStaticType } from '../types/users';
+import { UserIdsType, UserModelStaticType } from '../types/users';
 
-export const readUsersData = (model: UserModelStaticType, userIds: string[]) => {
+export const readUsersData = (model: UserModelStaticType, userIds: UserIdsType) => {
     return model.findAll({
         where: {
             id: {

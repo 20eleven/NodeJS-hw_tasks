@@ -6,7 +6,7 @@ import {
     updateGroupData,
     deleteGroupData
 } from '../data-access';
-import { GroupModelType, GroupModelStaticType, GroupType } from '../types/groups';
+import { GroupModelType, GroupModelStaticType, GroupType, GroupIdType } from '../types/groups';
 
 export default class GroupService {
     groupModel: GroupModelStaticType;
@@ -20,7 +20,7 @@ export default class GroupService {
         return createGroupData(this.groupModel, groupDTO);
     }
 
-    readGroup(id: string) {
+    readGroup(id: GroupIdType) {
         return readGroupData(this.groupModel, id);
     }
 
@@ -28,7 +28,7 @@ export default class GroupService {
         return readAllGroupData(this.groupModel);
     }
 
-    updateGroup(groupDTO: GroupType, id: string) {
+    updateGroup(groupDTO: GroupType, id: GroupIdType) {
         return updateGroupData(this.groupModel, groupDTO, id);
     }
 

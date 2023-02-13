@@ -14,12 +14,12 @@ export const deleteUserController = async ({ params: { id } }: Request, res: Res
 
         if (!readUser) return res.status(404).json({ message: `User with id ${id} not found` });
 
+        // soft user deletion
+        await userGroupServiceInstance.deleteUserGroupByUserId(id);
+
         if (readUser.getDataValue('isDeleted')) return res.json({ message: `User with id ${id} already deleted` });
 
         const deletedUser = await userServiceInstance.deleteUser(readUser);
-
-        // since soft user deletion, so there is no need to check if user_group rows exist
-        await userGroupServiceInstance.deleteUserGroupByUserId(id);
 
         res.status(200).send({ message: `User with id ${id} successfully deleted`, deletedUser });
     } catch (error) {

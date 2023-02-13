@@ -2,6 +2,8 @@ import { User } from '../models/user';
 
 export type UserIdType = string;
 
+export type UserIdsType = UserIdType[];
+
 export type UserType = {
     id: UserIdType,
     login: string,
@@ -11,5 +13,7 @@ export type UserType = {
 };
 
 export type UserModelType = User;
+
+export type UserModelsType = UserModelType[];
 
 export type UserModelStaticType = typeof User;

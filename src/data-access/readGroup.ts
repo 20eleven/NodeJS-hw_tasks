@@ -1,3 +1,3 @@
-import { GroupModelStaticType } from '../types/groups';
+import { GroupIdType, GroupModelStaticType } from '../types/groups';
 
-export const readGroupData = (model: GroupModelStaticType, id: string) => model.findByPk(id);
+export const readGroupData = (model: GroupModelStaticType, id: GroupIdType) => model.findByPk(id);
