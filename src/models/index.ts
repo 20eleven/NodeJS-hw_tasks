@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize';
+import { DataTypes, Sequelize } from 'sequelize';
 import { DbType } from '../types/db';
 import { GroupModel } from './group';
 import { UserModel } from './user';
@@ -14,16 +14,36 @@ sequelize
 const db: DbType = {
     sequelize,
     user: UserModel(sequelize),
-    group: GroupModel(sequelize)
+    group: GroupModel(sequelize),
+    userGroup: undefined
 };
 
+const UserGroups = sequelize.define('UserGroups', {
+    usersId: {
+        type: DataTypes.UUID,
+        references: {
+            model: db.group,
+            key: 'id'
+        }
+    },
+    groupsId: {
+        type: DataTypes.UUID,
+        references: {
+            model: db.user,
+            key: 'id'
+        }
+    }
+});
+
 db.user.belongsToMany(db.group, {
-    through: 'UserGroups',
+    through: UserGroups,
     foreignKey: 'usersId'
 });
 db.group.belongsToMany(db.user, {
-    through: 'UserGroups',
+    through: UserGroups,
     foreignKey: 'groupsId'
 });
+
+db.userGroup = UserGroups;
 
 export default db;
