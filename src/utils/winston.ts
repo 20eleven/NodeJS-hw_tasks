@@ -1,18 +1,24 @@
 import w from 'winston';
 
-export const winston = w.createLogger({
-    format: w.format.combine(
-        w.format.label({ label: 'Winston logger' }),
-        w.format.colorize(),
-        w.format.timestamp(),
-        w.format.simple()
+const {
+    createLogger,
+    format: { combine, label, colorize, timestamp, simple },
+    transports: { Console }
+} = w;
+
+export const winston = createLogger({
+    format: combine(
+        label({ label: 'Winston logger' }),
+        colorize(),
+        timestamp(),
+        simple()
     ),
     transports: [
-        new w.transports.Console({
+        new Console({
             level: 'error',
             handleExceptions: true
         }),
-        new w.transports.Console({
+        new Console({
             level: 'info'
         })
     ]
