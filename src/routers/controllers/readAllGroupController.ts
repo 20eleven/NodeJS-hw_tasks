@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import db from '../../models';
 import GroupService from '../../services/groupsService';
+import { controllerErrorHandler } from '../../utils';
 
 const GroupModel = db.group;
 
@@ -14,7 +15,10 @@ export const readAllGroupController = async (_: Request, res: Response) => {
 
         res.status(200).send({ groups });
     } catch (error) {
-        console.error(error);
+        controllerErrorHandler({
+            methodName: readAllGroupController.name,
+            error
+        });
         res.json({ error });
     }
 };

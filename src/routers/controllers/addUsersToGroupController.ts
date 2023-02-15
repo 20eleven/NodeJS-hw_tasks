@@ -3,6 +3,7 @@ import db from '../../models';
 import GroupService from '../../services/groupsService';
 import UserGroupService from '../../services/userGroupsService';
 import UserService from '../../services/usersService';
+import { controllerErrorHandler } from '../../utils';
 
 const { user: UserModel, group: GroupModel } = db;
 
@@ -24,7 +25,11 @@ export const addUsersToGroupController = async ({ params: { groupId }, body: { u
 
         res.status(200).send({ message: `Added user ids ${userIds.join(', ')} to group id ${groupId}` });
     } catch (error) {
-        console.error(error);
+        controllerErrorHandler({
+            methodName: addUsersToGroupController.name,
+            methodArguments: { params: { groupId }, body: { userIds } },
+            error
+        });
         res.json({ error });
     }
 };

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import db from '../../models';
 import UserService from '../../services/usersService';
+import { controllerErrorHandler } from '../../utils';
 
 const UserModel = db.user;
 
@@ -13,7 +14,11 @@ export const getAutoSuggestUsersController = async ({ query: { query: loginSubst
 
         res.status(200).send({ users });
     } catch (error) {
-        console.error(error);
+        controllerErrorHandler({
+            methodName: getAutoSuggestUsersController.name,
+            methodArguments: { query: { query: loginSubstring, limit } },
+            error
+        });
         res.json({ error });
     }
 };

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import db from '../../models';
 import GroupService from '../../services/groupsService';
+import { controllerErrorHandler } from '../../utils';
 
 const GroupModel = db.group;
 
@@ -14,7 +15,11 @@ export const updateGroupController = async ({ body: groupDTO, params: { id } }: 
 
         res.status(200).send({ message: `Group ${id} updated successfully` });
     } catch (error) {
-        console.error(error);
+        controllerErrorHandler({
+            methodName: updateGroupController.name,
+            methodArguments: { body: groupDTO, params: { id } },
+            error
+        });
         res.json({ error });
     }
 };

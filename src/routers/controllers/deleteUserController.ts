@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import db from '../../models';
 import UserGroupService from '../../services/userGroupsService';
 import UserService from '../../services/usersService';
+import { controllerErrorHandler } from '../../utils';
 
 const { user: UserModel, userGroup: UserGroupModel } = db;
 
@@ -23,7 +24,11 @@ export const deleteUserController = async ({ params: { id } }: Request, res: Res
 
         res.status(200).send({ message: `User with id ${id} successfully deleted`, deletedUser });
     } catch (error) {
-        console.error(error);
+        controllerErrorHandler({
+            methodName: deleteUserController.name,
+            methodArguments: { params: { id } },
+            error
+        });
         res.json({ error });
     }
 };

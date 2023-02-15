@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import db from '../../models';
 import GroupService from '../../services/groupsService';
+import { controllerErrorHandler } from '../../utils';
 
 const GroupModel = db.group;
 
@@ -12,7 +13,11 @@ export const createGroupController = async ({ body: groupDTO }: Request, res: Re
 
         res.status(200).send({ message: `Group ${groupDTO.id} created successfully` });
     } catch (error) {
-        console.error(error);
+        controllerErrorHandler({
+            methodName: createGroupController.name,
+            methodArguments: { body: groupDTO },
+            error
+        });
         res.json({ error });
     }
 };

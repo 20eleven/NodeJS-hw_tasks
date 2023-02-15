@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import db from '../../models';
 import GroupService from '../../services/groupsService';
 import UserGroupService from '../../services/userGroupsService';
+import { controllerErrorHandler } from '../../utils';
 
 const { group: GroupModel, userGroup: UserGroupModel } = db;
 
@@ -22,7 +23,11 @@ export const deleteGroupController = async ({ params: { id } }: Request, res: Re
 
         res.status(200).send({ message: `Group with id ${id} successfully deleted` });
     } catch (error) {
-        console.error(error);
+        controllerErrorHandler({
+            methodName: deleteGroupController.name,
+            methodArguments: { params: { id } },
+            error
+        });
         res.json({ error });
     }
 };

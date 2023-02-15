@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import db from '../../models';
 import UserService from '../../services/usersService';
+import { controllerErrorHandler } from '../../utils';
 
 const UserModel = db.user;
 
@@ -14,7 +15,11 @@ export const readUserController = async ({ params: { id } }: Request, res: Respo
 
         res.status(200).send({ user });
     } catch (error) {
-        console.error(error);
+        controllerErrorHandler({
+            methodName: readUserController.name,
+            methodArguments: { params: { id } },
+            error
+        });
         res.json({ error });
     }
 };
