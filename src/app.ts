@@ -2,7 +2,8 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 import express, { Application } from 'express';
 import { userRouter, groupRouter, userGroupRouter } from './routers';
-import { logServiceMethod } from './routers/middlewares';
+import { logServiceMethod, logUnhandledErrors } from './routers/middlewares';
+import { winston } from './utils';
 
 const app: Application = express();
 const PORT = process.env.PORT || 8000;
@@ -12,6 +13,11 @@ app
     .use(logServiceMethod)
     .use('/users', userRouter)
     .use('/groups', groupRouter)
-    .use('/users_groups', userGroupRouter);
+    .use('/users_groups', userGroupRouter)
+    .use(logUnhandledErrors);
+
+process
+    .on('uncaughtException', (error) => winston.error('Uncaught exception:', { error }))
+    .on('unhandledRejection', (error) => winston.error('Unhandled rejection:', { error }));
 
 app.listen(PORT);
