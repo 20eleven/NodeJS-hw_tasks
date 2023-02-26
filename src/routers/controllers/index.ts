@@ -11,6 +11,7 @@ import { readAllGroupController as readAllGroup } from './readAllGroupController
 import { updateGroupController as updateGroup } from './updateGroupController';
 import { deleteGroupController as deleteGroup } from './deleteGroupController';
 import { addUsersToGroupController as addUsersToGroup } from './addUsersToGroupController';
+import { loginController as loginUser } from './loginController';
 
 export const createUserController = controllerExecutionTimeLogger(createUser);
 export const readUserController = controllerExecutionTimeLogger(readUser);
@@ -23,3 +24,4 @@ export const readAllGroupController = controllerExecutionTimeLogger(readAllGroup
 export const updateGroupController = controllerExecutionTimeLogger(updateGroup);
 export const deleteGroupController = controllerExecutionTimeLogger(deleteGroup);
 export const addUsersToGroupController = controllerExecutionTimeLogger(addUsersToGroup);
+export const loginController = controllerExecutionTimeLogger(loginUser);

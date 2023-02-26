@@ -22,8 +22,8 @@ export default class UserService {
         return createUserData(this.userModel, userDTO);
     }
 
-    readUser(id: UserIdType) {
-        return readUserData(this.userModel, id);
+    readUser(id: UserIdType, withPassword?: boolean) {
+        return readUserData(this.userModel, id, withPassword);
     }
 
     readUsers(ids: UserIdsType) {
