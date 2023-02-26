@@ -2,9 +2,9 @@ import { DataTypes, Sequelize } from 'sequelize';
 import { DbType } from '../types/db';
 import { GroupModel } from './group';
 import { UserModel } from './user';
+import env from '../config/envConfig';
 
-// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-const sequelize = new Sequelize(process.env.CONNECTION_STRING!);
+const sequelize = new Sequelize(env.connectionString);
 
 sequelize
     .authenticate()

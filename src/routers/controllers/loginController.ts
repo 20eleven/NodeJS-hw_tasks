@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import db from '../../models';
 import UserService from '../../services/usersService';
 import { controllerErrorHandler } from '../../utils';
+import env from '../../config/envConfig';
 
 const UserModel = db.user;
 
@@ -17,8 +18,7 @@ export const loginController = async ({ body: { userName, password }, params: { 
             return res.status(403).json({ message: 'Bad username / password combination' });
         }
 
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        const token = jwt.sign({ id }, process.env.AUTH_SECRET!, { expiresIn: '1h' });
+        const token = jwt.sign({ id }, env.authSecret, { expiresIn: '1h' });
 
         res.setHeader('x-access-token', token).send({ token });
 

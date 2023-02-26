@@ -4,9 +4,10 @@ import express, { Application } from 'express';
 import { userRouter, groupRouter, userGroupRouter } from './routers';
 import { logServiceMethod, logUnhandledErrors } from './routers/middlewares';
 import { winston } from './utils';
+import env from './config/envConfig';
 
 const app: Application = express();
-const PORT = process.env.PORT || 8000;
+const PORT = env.port || 8000;
 
 app
     .use(express.json())
