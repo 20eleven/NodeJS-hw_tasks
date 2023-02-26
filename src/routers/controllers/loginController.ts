@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { envConfig } from '../../config';
 import db from '../../models';
 import UserService from '../../services/usersService';
 import { controllerErrorHandler } from '../../utils';
-import env from '../../config/envConfig';
 
 const UserModel = db.user;
 
@@ -18,7 +18,7 @@ export const loginController = async ({ body: { userName, password }, params: { 
             return res.status(403).json({ message: 'Bad username / password combination' });
         }
 
-        const token = jwt.sign({ id }, env.authSecret, { expiresIn: '1h' });
+        const token = jwt.sign({ id }, envConfig.authSecret, { expiresIn: '1h' });
 
         res.setHeader('x-access-token', token).send({ token });
 

@@ -1,10 +1,10 @@
 import { DataTypes, Sequelize } from 'sequelize';
+import { envConfig } from '../config';
 import { DbType } from '../types/db';
 import { GroupModel } from './group';
 import { UserModel } from './user';
-import env from '../config/envConfig';
 
-const sequelize = new Sequelize(env.connectionString);
+const sequelize = new Sequelize(envConfig.connectionString);
 
 sequelize
     .authenticate()
