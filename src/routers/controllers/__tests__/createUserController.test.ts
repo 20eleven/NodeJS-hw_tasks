@@ -4,6 +4,7 @@ import UserService from '../../../services/usersService';
 import { controllerErrorHandler } from '../../../utils';
 import { mockedRes as res } from '../../../utils/testsUtils';
 import { createUserController } from '../createUserController';
+import { mockedUserDTO as userDTO } from '../__mocks__/dtoConstants';
 
 describe('createUserController', () => {
     beforeEach(() => {
@@ -11,14 +12,6 @@ describe('createUserController', () => {
     });
 
     it('should status 200 and send correct value', async () => {
-        const userDTO = {
-            id: 'testId',
-            login: 'testLogin',
-            password: 'testPassword',
-            age: 44,
-            isDeleted: false
-        };
-
         jest.spyOn(UserService.prototype, 'createUser').mockResolvedValueOnce(userDTO as User);
         await createUserController({ body: userDTO } as Request, res);
 
