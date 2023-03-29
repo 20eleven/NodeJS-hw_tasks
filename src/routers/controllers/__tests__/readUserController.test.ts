@@ -5,6 +5,7 @@ import { controllerErrorHandler } from '../../../utils';
 import { mockedRes as res } from '../../../utils/testsUtils';
 import { readUserController } from '../readUserController';
 import { mockedUserDTO as userDTO } from '../__mocks__/dtoConstants';
+import { findByPkMock } from '../__mocks__/models';
 
 describe('readUserController', () => {
     beforeEach(() => {
@@ -31,6 +32,7 @@ describe('readUserController', () => {
     });
 
     it('should catch error', async () => {
+        findByPkMock.mockRejectedValue(undefined);
         await readUserController({ params: {} } as Request, res);
 
         expect(controllerErrorHandler as jest.Mock).toBeCalled();

@@ -1,3 +1,5 @@
+import { findByPkMock } from './models';
+
 jest.mock('sequelize', () => ({
     Sequelize: jest.fn().mockImplementation(() => ({
         authenticate: jest.fn().mockResolvedValue(''),
@@ -10,7 +12,8 @@ jest.mock('sequelize', () => ({
 jest.mock('../../../models/user', () => ({
     User: jest.fn(),
     UserModel: jest.fn().mockImplementation(() => ({
-        belongsToMany: jest.fn()
+        belongsToMany: jest.fn(),
+        findByPk: findByPkMock
     }))
 }));
 
