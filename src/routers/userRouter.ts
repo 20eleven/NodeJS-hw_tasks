@@ -23,4 +23,4 @@ export default router
     .put('/update/:id', checkToken, validateUserSchema(userSchema), updateUserController)
     .delete('/delete/:id', checkToken, deleteUserController)
     .get('/find', checkToken, validateQuerySchema(querySchema), getAutoSuggestUsersController)
-    .post('/auth/:id', loginController);
+    .post('/auth', loginController);

@@ -9,26 +9,25 @@ const UserModel = db.user;
 
 const userServiceInstance = new UserService(UserModel);
 
-export const loginController = async ({ body: { userName, password }, params: { id } }: Request, res: Response) => {
+export const loginController = async ({ body: { userName, password } }: Request, res: Response) => {
     try {
-        const user = await userServiceInstance.readUser(id, true);
+        const user = await userServiceInstance.readUserByLogin(userName);
 
-        if (!user) return res.status(404).json({ message: `User with id ${id} not found` });
-        if (user.login !== userName || user.password !== password) {
-            return res.status(403).json({ message: 'Bad username / password combination' });
+        if (!user || user.login !== userName || user.password !== password) {
+            return res.status(403).json({ message: "Your username or password doesn't match" });
         }
 
-        const token = jwt.sign({ id }, envConfig.authSecret, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.id }, envConfig.authSecret, { expiresIn: '1h' });
 
-        res.setHeader('x-access-token', token).send({ token });
+        res.send({ token });
 
         return token;
     } catch (error) {
         controllerErrorHandler({
             methodName: loginController.name,
-            methodArguments: { params: { id } },
-            error
+            methodArguments: { body: { userName } },
+            error,
+            res
         });
-        res.json({ error });
     }
 };

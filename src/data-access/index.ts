@@ -13,3 +13,4 @@ export * from './readUsers';
 export * from './deleteUserGroupByGroupId';
 export * from './deleteUserGroupByUserId';
 export * from './readUserGroupByGroupId';
+export * from './readUserByLogin';

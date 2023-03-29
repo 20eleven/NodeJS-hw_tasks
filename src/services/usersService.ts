@@ -3,6 +3,7 @@ import {
     createUserData,
     deleteUserData,
     getAutoSuggestUsersData,
+    readUserByLoginData,
     readUserData,
     readUsersData,
     updateUserData
@@ -20,6 +21,10 @@ export default class UserService {
         userDTO.isDeleted = false;
 
         return createUserData(this.userModel, userDTO);
+    }
+
+    readUserByLogin(login: UserType['login']) {
+        return readUserByLoginData(this.userModel, login);
     }
 
     readUser(id: UserIdType, withPassword?: boolean) {
