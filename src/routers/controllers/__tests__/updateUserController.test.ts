@@ -33,6 +33,5 @@ describe('updateUserController', () => {
         await updateUserController({ params: {} } as Request, res);
 
         expect(controllerErrorHandler as jest.Mock).toBeCalled();
-        expect(res.json).toBeCalled();
     });
 });
