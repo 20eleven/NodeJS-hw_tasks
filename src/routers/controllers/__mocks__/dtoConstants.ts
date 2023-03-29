@@ -1,4 +1,5 @@
 import { Group } from '../../../models/group';
+import { UserGroupModelType } from '../../../types/userGroup';
 
 export const mockedUserDTO = {
     id: 'testId',
@@ -13,3 +14,8 @@ export const mockedGroupDTO = {
     name: 'testName',
     permissions: ['READ']
 } as Group;
+
+export const mockedUserGroup = {
+    usersId: 'userTestId',
+    groupsId: 'groupTestId'
+} as unknown as UserGroupModelType;
