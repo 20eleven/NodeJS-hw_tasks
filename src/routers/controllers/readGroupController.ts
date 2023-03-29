@@ -18,8 +18,8 @@ export const readGroupController = async ({ params: { id } }: Request, res: Resp
         controllerErrorHandler({
             methodName: readGroupController.name,
             methodArguments: { params: { id } },
-            error
+            error,
+            res
         });
-        res.json({ error });
     }
 };

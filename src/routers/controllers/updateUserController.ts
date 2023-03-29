@@ -18,8 +18,8 @@ export const updateUserController = async ({ body: userDTO, params: { id } }: Re
         controllerErrorHandler({
             methodName: updateUserController.name,
             methodArguments: { body: userDTO, params: { id } },
-            error
+            error,
+            res
         });
-        res.json({ error });
     }
 };

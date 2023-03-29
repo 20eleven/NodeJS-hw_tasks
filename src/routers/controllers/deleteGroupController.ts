@@ -26,8 +26,8 @@ export const deleteGroupController = async ({ params: { id } }: Request, res: Re
         controllerErrorHandler({
             methodName: deleteGroupController.name,
             methodArguments: { params: { id } },
-            error
+            error,
+            res
         });
-        res.json({ error });
     }
 };

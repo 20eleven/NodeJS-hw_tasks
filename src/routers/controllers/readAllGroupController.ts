@@ -17,8 +17,8 @@ export const readAllGroupController = async (_: Request, res: Response) => {
     } catch (error) {
         controllerErrorHandler({
             methodName: readAllGroupController.name,
-            error
+            error,
+            res
         });
-        res.json({ error });
     }
 };

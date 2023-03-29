@@ -18,8 +18,8 @@ export const readUserController = async ({ params: { id } }: Request, res: Respo
         controllerErrorHandler({
             methodName: readUserController.name,
             methodArguments: { params: { id } },
-            error
+            error,
+            res
         });
-        res.json({ error });
     }
 };

@@ -16,8 +16,8 @@ export const createGroupController = async ({ body: groupDTO }: Request, res: Re
         controllerErrorHandler({
             methodName: createGroupController.name,
             methodArguments: { body: groupDTO },
-            error
+            error,
+            res
         });
-        res.json({ error });
     }
 };

@@ -28,8 +28,8 @@ export const addUsersToGroupController = async ({ params: { groupId }, body: { u
         controllerErrorHandler({
             methodName: addUsersToGroupController.name,
             methodArguments: { params: { groupId }, body: { userIds } },
-            error
+            error,
+            res
         });
-        res.json({ error });
     }
 };

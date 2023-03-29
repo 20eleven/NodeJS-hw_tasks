@@ -27,8 +27,8 @@ export const deleteUserController = async ({ params: { id } }: Request, res: Res
         controllerErrorHandler({
             methodName: deleteUserController.name,
             methodArguments: { params: { id } },
-            error
+            error,
+            res
         });
-        res.json({ error });
     }
 };

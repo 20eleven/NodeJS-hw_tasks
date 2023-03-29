@@ -17,8 +17,8 @@ export const getAutoSuggestUsersController = async ({ query: { query: loginSubst
         controllerErrorHandler({
             methodName: getAutoSuggestUsersController.name,
             methodArguments: { query: { query: loginSubstring, limit } },
-            error
+            error,
+            res
         });
-        res.json({ error });
     }
 };

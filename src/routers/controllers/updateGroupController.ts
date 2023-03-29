@@ -18,8 +18,8 @@ export const updateGroupController = async ({ body: groupDTO, params: { id } }: 
         controllerErrorHandler({
             methodName: updateGroupController.name,
             methodArguments: { body: groupDTO, params: { id } },
-            error
+            error,
+            res
         });
-        res.json({ error });
     }
 };

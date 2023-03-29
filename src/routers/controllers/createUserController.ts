@@ -16,8 +16,8 @@ export const createUserController = async ({ body: userDTO }: Request, res: Resp
         controllerErrorHandler({
             methodName: createUserController.name,
             methodArguments: { body: userDTO },
-            error
+            error,
+            res
         });
-        res.json({ error });
     }
 };
