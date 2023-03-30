@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { Group } from '../../../models/group';
 import GroupService from '../../../services/groupsService';
 import { controllerErrorHandler } from '../../../utils';
-import { mockedRes as res } from '../../../utils/testsUtils';
+import { mockedRes as res } from '../__mocks__/express';
 import { readAllGroupController } from '../readAllGroupController';
 import { mockedGroupDTO as groupDTO } from '../__mocks__/dtoConstants';
 
@@ -31,7 +31,7 @@ describe('readAllGroupController', () => {
     });
 
     it('should catch error', async () => {
-        jest.spyOn(GroupService.prototype, 'readAllGroup').mockRejectedValue(undefined);
+        jest.spyOn(GroupService.prototype, 'readAllGroup').mockImplementation(() => Promise.reject());
         await readAllGroupController({} as Request, res);
 
         expect(controllerErrorHandler as jest.Mock).toBeCalled();

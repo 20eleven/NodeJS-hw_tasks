@@ -3,7 +3,7 @@ import { Group } from '../../../models/group';
 import GroupService from '../../../services/groupsService';
 import UserGroupService from '../../../services/userGroupsService';
 import { controllerErrorHandler } from '../../../utils';
-import { mockedRes as res } from '../../../utils/testsUtils';
+import { mockedRes as res } from '../__mocks__/express';
 import { deleteGroupController } from '../deleteGroupController';
 import { mockedGroupDTO as groupDTO, mockedUserGroup } from '../__mocks__/dtoConstants';
 

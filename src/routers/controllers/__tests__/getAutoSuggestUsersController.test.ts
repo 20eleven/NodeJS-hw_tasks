@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { User } from '../../../models/user';
 import UserService from '../../../services/usersService';
 import { controllerErrorHandler } from '../../../utils';
-import { mockedRes as res } from '../../../utils/testsUtils';
+import { mockedRes as res } from '../__mocks__/express';
 import { getAutoSuggestUsersController } from '../getAutoSuggestUsersController';
 import { mockedUserDTO as userDTO } from '../__mocks__/dtoConstants';
 

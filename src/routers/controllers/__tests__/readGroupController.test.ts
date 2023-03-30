@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import GroupService from '../../../services/groupsService';
 import { controllerErrorHandler } from '../../../utils';
-import { mockedRes as res } from '../../../utils/testsUtils';
+import { mockedRes as res } from '../__mocks__/express';
 import { readGroupController } from '../readGroupController';
 import { mockedGroupDTO as groupDTO } from '../__mocks__/dtoConstants';
 

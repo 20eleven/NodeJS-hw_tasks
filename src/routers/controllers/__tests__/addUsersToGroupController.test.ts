@@ -4,7 +4,7 @@ import GroupService from '../../../services/groupsService';
 import UserGroupService from '../../../services/userGroupsService';
 import UserService from '../../../services/usersService';
 import { controllerErrorHandler } from '../../../utils';
-import { mockedRes as res } from '../../../utils/testsUtils';
+import { mockedRes as res } from '../__mocks__/express';
 import { addUsersToGroupController } from '../addUsersToGroupController';
 import { mockedUserDTO as userDTO, mockedGroupDTO as groupDTO } from '../__mocks__/dtoConstants';
 

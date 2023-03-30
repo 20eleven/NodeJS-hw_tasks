@@ -1,7 +1,7 @@
 import { Request } from 'express';
 import UserService from '../../../services/usersService';
 import { controllerErrorHandler } from '../../../utils';
-import { mockedRes as res } from '../../../utils/testsUtils';
+import { mockedRes as res } from '../__mocks__/express';
 import { updateUserController } from '../updateUserController';
 import { mockedUserDTO as userDTO } from '../__mocks__/dtoConstants';
 

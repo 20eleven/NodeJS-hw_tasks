@@ -2,7 +2,7 @@ import { Request } from 'express';
 import { User } from '../../../models/user';
 import UserService from '../../../services/usersService';
 import { controllerErrorHandler } from '../../../utils';
-import { mockedRes as res } from '../../../utils/testsUtils';
+import { mockedRes as res } from '../__mocks__/express';
 import { readUserController } from '../readUserController';
 import { mockedUserDTO as userDTO } from '../__mocks__/dtoConstants';
 import { findByPkMock } from '../__mocks__/models';
@@ -32,7 +32,7 @@ describe('readUserController', () => {
     });
 
     it('should catch error', async () => {
-        findByPkMock.mockRejectedValue(undefined);
+        findByPkMock.mockImplementation(() => Promise.reject());
         await readUserController({ params: {} } as Request, res);
 
         expect(controllerErrorHandler as jest.Mock).toBeCalled();
